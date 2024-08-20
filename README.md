@@ -3,8 +3,8 @@
 
 
 # Usage
+1. setup the container
 ```bash
-
 docker rm -f gui-app-web
 docker rmi your-gui-app-image:latest
 
@@ -13,3 +13,4 @@ docker run  --name gui-app-web -d -p 8888:8080 your-gui-app-image:latest
 
 docker exec -it gui-app-web /bin/bash
 ```
+2. Now you should be able to see view the app via http://127.0.0.1:8888
