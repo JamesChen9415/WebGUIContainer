@@ -21,18 +21,11 @@ RUN apt-get update -y && \
     wget \
     tzdata \
     lsof \ 
+    openbox \ 
     && rm -rf /var/lib/apt/lists/*
 
 # Install noVNC
 RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC
-
-# Set up the virtual framebuffer (Xvfb)
-RUN mkdir -p /etc/supervisor/conf.d
-COPY supervisor.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Copy your application files
-# COPY your-app /opt/your-app
-# WORKDIR /opt/your-app
 
 # RUN apt-get install wget kgpg -y
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -43,6 +36,10 @@ RUN rm -f packages.microsoft.gpg
 RUN apt install apt-transport-https -y 
 RUN apt update -y
 RUN apt install code -y
+
+# Set up the virtual framebuffer (Xvfb)
+RUN mkdir -p /etc/supervisor/conf.d
+COPY supervisor.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose the noVNC port
 EXPOSE 8080
